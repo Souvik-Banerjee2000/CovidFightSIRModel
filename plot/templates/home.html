@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="POST">
+    {% csrf_token %}
+        <input type="text" name="rateSI" id="" required> <label for="">Enter the rateSI</label> <br>
+        <input type="number" name="Susceptible" id="" required> <label for="">Enter the Susceptible People No</label> <br>
+        <input type="number" name="Infected" id="" required> <label for="">Enter the Infected People number</label> <br>
+        <input type="text" name="rateIR" id="" required> <label for="">Enter the rateIR</label> <br>
+        <input type="submit" value="Submit">
+    </form>
+
+
+</body>
+</html>
