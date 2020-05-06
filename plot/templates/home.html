@@ -1,20 +1,105 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+    <link rel="stylesheet" href="./../static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <form action="" method="POST">
-    {% csrf_token %}
-        <input type="text" name="rateSI" id="" required> <label for="">Enter the rateSI</label> <br>
-        <input type="number" name="Susceptible" id="" required> <label for="">Enter the Susceptible People No</label> <br>
-        <input type="number" name="Infected" id="" required> <label for="">Enter the Infected People number</label> <br>
-        <input type="text" name="rateIR" id="" required> <label for="">Enter the rateIR</label> <br>
-        <input type="submit" value="Submit">
+    <form class="loginbox" action="" method="POST">
+        <img src="{% static 'images/img.png' %}" class="image">
+        <h4>Enter the data to see the simulation :-</h4>
+        {% csrf_token %}
+        <label for="">Enter the rateSI</label>
+        <input type="" name="rateSI" id="" pattern="^\d*(\.\d{0,2})?$" placeholder="Enter any float value for rateSI" required> <br>
+        <label for="">Enter the Susceptible People No</label> <br>
+        <input type="number" name="Susceptible" id="" placeholder="Enter the no of Suspected People" required> <br>
+        <label for="">Enter the Infected People number</label> <br>
+        <input type="number" name="Infected" id="" placeholder="Enter the no of Infected People" required> <br>
+        <label for="">Enter the rateIR</label> <br>
+        <input  name="rateIR" id="" pattern="^\d*(\.\d{0,2})?$" placeholder="Enter any float value for rateIR" required> <br>
+        <input class="btn btn-success" type="submit" value="Submit">
     </form>
+    <div class="container2">
+        <h1>You can change infection rate (transmission rate) and see how spread is affected. <br> (flattening the curve).</h1>
+        <hr>
+        <h5><strong>rate = beta = number of social contacts * probability of contracting virus each contact. When we socially isolate we reducebeta and therefore spread.</strong></h5>
+        <hr>
+        <i>An individual is infectious for approximately 7 days. During this time they pass covid19 to approximately 2.5 people.
+        These 2 basic parameters determine the model dynamics.</i>
+        
+    </div>
+    <div class="container3">    
+        <hr>
+        Simulink model is of the following system of three odes:
+        dS/dt = -β(I/N)S
+        dI/dt = β(I/N)S – γI
+        dR/dt = γI
+        S = Number Susceptible Individuals
+        I = Number Infectious Individuals
+        R = Number Recovered Individuals
+        N= Total Population
+        β = Ep = Number Social contacts x probability of transmitting disease each contact = Infection rate
+        γ = Recovery Rate
+        Key scenarios of dynamics:
+    </div> 
+    <div class="container4">   
+        <br>
+        <strong>1>></strong> 
+        
+        <u>  If, during 7 days of being infectious, a person passes to 1 person then the disease will not grow, i.e., number of
+        infectious individuals stays the same.</u>
+        <br>
+        <strong>2>></strong>
+        
+        <u>  If, during 7 days of being infectious, a person passes to 2 or more people the disease grows, i.e., number of
+        infectious individuals grows.</u>
+        <br>
+        <strong>3>></strong>
+        
+        <u>   If, during 7 days of being infectious, a person does not pass to another person (or, say 10 people are sick at exact
+        same time and pass to 9 people over 7 days) the disease will reduce, i.e., number of sick individuals goes to zero.
+        As individuals recover, the number of susceptible people decline, and therefore spread slows and eventually reduces to
+        zero.
+        </u>
+
+    </div>
 
 
 </body>
+<script>
+    $(document).on('keydown', 'input[pattern]', function (e) {
+            var input = $(this);
+            var oldVal = input.val();
+            var regex = new RegExp(input.attr('pattern'), 'g');
+
+            setTimeout(function () {
+                var newVal = input.val();
+                if (!regex.test(newVal)) {
+                    input.val(oldVal);
+                }
+            }, 0);
+        });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
 </html>
