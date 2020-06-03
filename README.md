@@ -1,2 +1,4 @@
 # CovidFightSIRModel
-### Workinglink:- covidfightsirplot.herokuapp.com
+### Workinglink :----
+
+[click here](http://covidfightsirplot.herokuapp.com/)
